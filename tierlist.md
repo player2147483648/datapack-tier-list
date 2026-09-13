@@ -84,6 +84,8 @@ The tiers will be further separated using + or -, to determine if they are stron
 
 Now, onto the tierlist:
 
+## The tier list
+
 ### 1. `/advancement`
 
 This command is useful for two main reasons:
@@ -205,3 +207,92 @@ I could go on about dialogs themselves, but this is ranking the *commnand*. Over
 Being even simpler than `/defaultgamemode`, this command just changes the world difficulty, or query the current difficulty by running just `/difficulty`. On servers, the difficulty gets set to the one in `server.properties` on restart, so it's good for temporary difficulty changes.
 
 That being said, it's more useful than `/defaultgamemode`, since `/difficulty peaceful` is a quick way to remove monsters, but outside of convenience sake, it doesn't serve a good purpose. I will put this command in **C**, since it's server quirks, and `/difficulty peaceful` can be used.
+
+### 13. `/effect`
+
+This command allows you to add or remove potion effects from living entities. You can specify:
+- what effect
+- duration in seconds (or `infinite`)
+- amplifier (how strong the effect is)
+- whether to hide particles and HUD display
+
+You are also able to remove effects using `/effect clear <targets> [<effect>]`. If `[<effect>]` is omitted, then it clears *all* entity effects.
+
+This command doesn't have that much wrong - it's always nice to give players saturation, or night vision. They do reset on death, but it's super easy to just regive them. I do wish that time was in ticks instead of seconds.
+
+For these reasons, `/effect` goes into **A-**. There's most likely an effect that will be used, and being able to hide particles, and supply infinite time is very nice.
+
+### 14. `/enchant`
+
+This command enchants the item in your mainhand with the specified enchantment with the specified level. The enchantment **cannot** be illegal in the sense that
+- The item has to be compatible with the enchantment (e.g. you cannot apply protection to a tool);
+- If the enchantment results in 2 mutually exclusive enchantments being put on the same item (e.g. trying to put mending on a bow with infinity), the command fails; and
+- The enchantment level **cannot** exceed that of the enchantment's `max_level` field (e.g. you cannot apply sharpness 6 onto a sword with this enchantment)
+ 
+It also only works on players.
+
+As a datapacker, I don't really find a use for this command outside of testing the legality of custom enchantments - if it's legal, it'll show up here; this is because the restrictions can be bypassed using item modifiers. 
+
+For a casual player though (like I was at some point), it's very convenient because you don't need to grab an anvil with all your books to enchant an item. For these reasons, as well as the level restriction, I will put this command into **C+**.
+
+### 15. `/execute` (the GOAT)
+
+This is **by far** the best command in Minecraft, and there is no second place. If you don't know what I mean, `/execute` can
+- run ANY command as multiple entities - including commands only compatible with one target (e.g. `/data get entity`)
+- run a command at the position of ANY entity
+- run a command at any position, rotation OR dimension in general
+- use conditional statements using the many `/execute [if|unless]` subcommands
+- store the result or successfulness of a command to a scoreboard, bossbar or NBT location
+- and on top of this, run any command right after.
+
+These might not sound too ridiculous on paper (if you live under a rock), but combined? That's where it gets **FAR** beyond the scope of this tierlist. `/execute` is so good, that even if it did not get revamped in 1.13, it would still place near the *top* of the list (like #2 or 3, but still in S tier).
+
+This command obviously gets an **S+**.
+
+### 16. `/fetchprofile`
+
+Ok, calming down now, `/fetchprofile` allows you to fetch the profile of another Minecraft user, by either their name, UUID or via a target selector if they're online. When fetching by name or UUID, the request will go to Microsoft's servers, and if the profile is resolved, you will be able to:
+- copy the `profile` component of that request,
+- give yourself a player head with the component, or
+- summon a mannequin using that profile component.
+
+Since the components resolve into a Base64 encoded texture, even if the player's skin changes, that profile will point to the same texture generated when `/fetchprofile` was run. This is very useful for getting certain player heads or mannequin skins inside a map. However, the main problem is use within datapacks.
+
+Using `/fetchprofile id <UUID>` or `/fetchprofile name <name>` in a function or command block will *always* succeed, regardless of actual failure. You cannot use conventional command block output, because even on success, the message allowing you to summon mannequins, copy components or give heads doesn't show up. Using `/fetchprofile entity <target>` does work, although there is a better alternative. This completely disallows accessing the actual date within Minecraft *accurately and cosistently*, which - even though not always useful - would've been super cool.
+
+However, due to the things already discussed, I wil put the command into **C+**, because while entirely useless for datapack development, it's actually quite nice of a tool for mapmakers and casual players (in the command sense).
+
+### 17. `/fill`
+
+A classic. Basically, you describe the region you want to fill out with 2 sets of coordinates, you specify which block you want, and that's the gist of it. There are some other interesting features with `/fill`, like:
+- only replaceing specific blocks using a filter;
+- only replacing non-air blocks;
+- destroying blocks as if with a tool (unenchanted diamond pickaxe in this case, since that by default can access every non-silk touch drop);
+- placing without applying initial block updates (useful for water, sand, etc.); and
+- creating an outline, which either hollows out the center or keeps it. Keep in mind that this only works if the length of all axes (X, Y, and Z) are at least 3.
+
+Overall, this command is very usefull for filling out a rectangle or cuboid shape out of blocks, and the only flaw I can think of is that you should be able to specify the tool or loot method for `destroy`. I'll give this an **A tier**, but close to A+.
+
+### 18. `/fillbiome`
+
+This was definitely one of the most requested commands for Minecraft, and it was added in 1.16. Basically, you describe a region like in `/fill`, and specify the biome. You can also choose to only replace specific biomes with a filter.
+
+> [!NOTE]
+>
+> You might find that the biomes aren't acutally in the area you wanted - likely larger or smaller in certain regions. This is becuase Minecraft stores biomes in 4x4 regions instead, and those regions are also blended into irregular shpaes.
+
+Overall, a niche command, but serves its purpose well. The only limitation is not within the command itself, but how Minecraft sets them, as stated in the note above
+
+I will give this command a **B+**, because while not as useful as `/fill`, it's a very nice feature when you need it.
+
+### 19. `/forceload`
+
+This is a particularly great command, as it marks specified chunks for entity ticking (the highest level for loaded chunks). This is really useful, say, when you need an entity in a certain place to be loaded at all times. You can also unmark chunks for forceloading. This command especially became useful when spawn chunks were removed in 1.21.9. Additionally, you can query for if a position is forceloaded, or query all forceloaded chunks.
+
+While this command isn't used everywhere, keeping a loaded area is necessary for commands that modify blocks, target selectors, etc. For these reasons, I will put this at **A+**, nearing an **S-**, because no other command inside of Minecraft can force an area to be loaded (you can summon an ender pearl to keep an area loaded, but that's not permanent).
+
+### 20. `/function`
+
+The `/function` command is simple: it runs a function or function tag, with optional macro values that can be passed in. Command functions are essentially the heart of datapacks, since they can run multiple commands instantly, and they remember **context** (what ran, and where it ran). On top of this, being able to supply macro values to pass in is likely the best thing Mojang has added since the `/execute` revamp.
+
+While yes, non datapackers basically have no use for this, it's so useful for datapacks that it earns the bronze medal for best command (only behind `/data` and `/execute`), and that's because datapacks *technically* aren't necessary to build most things that don't require macros. For these reasons, `/function` will be given an **S tier**.
