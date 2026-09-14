@@ -419,3 +419,113 @@ You see, custom post effects can basically allow you to put whatever you want on
 Overall, this command is a double-eged sword, because it can lead to basically infinite possibilities (at least for the client's screen), but shaders are some of the hardest things to work with in vanilla Minecraft. For these reasons, `/posteffect` will be given into **B+ tier**, since it is the most powerful command concerning visual effects, but is likely the hardest to utilize; so much so, that you likely won't ever use it. 
 
 Please note that this is the most unsure placement on the entire list <!--This is unlikely to be, but possibly can be subject to change-->, since the balancing potenital and usability is especially hard here.
+
+### 33. `/random`
+
+`/random` allows you to generate a random value within an integer range, as well as modifying random sequences, which are usable in loot tables and this command.
+
+The main problem with `/random` is that it's partially obselete due to the context number provider changes in 26.3. However, it's still more convenient to run `/random` than to run a number provider. You also are still able to use random sequences, which number providers don't have access to still. However, there are still limited use cases for these sequences.
+
+Overall, `/random` would place higher than where it is, but due to being able to roll random numbers (and decimals) in context number providers, this command has become less unique. Regardless, this command belongs in **B tier**, due to convenience, and the uniqueness of sequence control.
+
+### 34. `/recipe`
+
+The `/recipe` command allows for the giving and taking of recipes for players. There is also a wildcard `*`, that allows you to give/take *every* recipe at once.
+
+There's only two reasons why you'd use this command:
+1. To get rid of the toasts when you unlock a recipe; however, the better way is to block the recipe folder of any datapack within `pack.mcmeta`
+2. When the `limited_crafting` gamerule is enabled, and you want to give or remove recipes through commands.
+
+These are quite niche use cases, but the command still does its job. For these reasons, `/recipe` goes into **C+**, but closer to C tier.
+
+### 35. `/reload`
+
+This command is not used inside of datapacks, but rather while *testing* them. After every change to functioms, advancements, predicates, recipes, etc., once you want to see the changes, just type `/reload` and they (hopefully) should appear. Thankfully now, you are given a message when `/reload` fails in 26.3. It also has use for casual players as well, because you can import datapacks while inside a world and use `/reload`.
+
+Due to the obsessive use inside of datapacks, it ought to rank highly. My only problem is that some things (like enchantments and dialogs) aren't reloadable due to being considered *experimental*. For these reasons, `/reload` will be given an **A tier**, being very close to A+.
+
+### 36. `/return`
+
+While being basically useless outside of datapacks, `/return` is one of the most useful commands inside of them.
+
+When you run `/return` inside a function, it does two things:
+1. It **immediately** terminates execution of the command. If `/return run` is used, it runs the command specified before termination.
+2. It sets result and successfulness values for the functions, useable in `/execute store success` and `/execute if function`. Just note that `/execute if function` checks for a result of 0 instead of a successfulness of 0.
+    - If `/return run` is used, the result and success values are set to that of the command run by it.
+
+In other programming languages like Python, Java, etc, a `return` keyword is used for control flow inside of functions, and also is used to return values on use of said functions. `/return` brings these realities to datapacks.
+
+Overall, `/return` is used **constantly** due to it's control flow and return abilities. For this reason alone, I give it an **S tier**, under `/item` however due to it's uselessness outside of datapacks.
+
+### 37. `/ride`
+
+The `/ride` commands allows you to mount any entity to (almost) any other entity. Players, markers, fishing bobbers, leash knots and lightning bolts **cannot** be ridden however.
+
+This command at first seems more of a 'fun' command than anything, but there are two purposes I have found:
+1. You can make an entity like a marker ride a snowball or egg to detect when they've been destroyed. You can do this because there's a predicate for checking the vehicle entity.
+2. Very niche use, but you can, with `/spectate` lock the camera motion, but still get mouse movement, allowing for interactive UIs within the 3D space of Minecraft.
+
+There also might be potential to be able to copy an entities NBT through the `Passengers` field using this, but I don't know where that could be used.
+
+Another thing is, when making players mount entities, the player does **not** control them by default, and players can only control certain mobs like horses, pigs or striders.
+
+Overall, what seems like a command made more for fun has some interesting use cases that can make it somewhat useful. Regardless, `/ride` should rank in the **B tier**.
+
+### 38. `/rotate`
+
+The `/rotate` command allows you to rotate entities to look at either:
+- a specific angle, using yaw and pitch;
+- a specific coordinate within the world; or
+- at a specific entity; additionally, you can choose to look at either the entity's eyes or feet.
+
+This may seem familiar because this is all part of the `/tp` command. This also means that you no longer have to use `/tp` in order to change the rotation of an entity. This change *alone* is enough to place it quite high
+
+Overall, I don't find anything wrong with this command, except for the fact that you are still using `/tp` more often than `/rotate`, and that you can still specify all of these things using `/tp` at once. That's not a problem with the command however, so I'll place `/rotate` into **A-**.
+
+### 39. `/say`
+
+This is the only command I kept in the tier list that outputs a message in chat, and there's one reason why: it's *the simplest* way of debugging datapacks or command block creations. Want to test if something is successful? Use `/say`. It even supports target selectors if you want to know affected entities without killing them or affecting them otherwise.
+
+There is another command like this (`/tellraw`), that has access to NBT, scores, etc.. This is still basically the `print("Hello World!")` of commands, and thus is really useful for debugging. Its rating does get deducted from not being used anywhere outside of this purpose.
+
+`/tellraw` is a more advanced version of `/say` however, and for that reason, `/say` gets a **B tier**, nearing an B+ because of how often it's used.
+
+### 40. `/schedule`
+
+A variant of `/function`, this command runs functions after a delay. These schedules can be put inside of a queue, where it either appends to or replaces the next call of that function. You can also cancel all scheduled calls of a function using `/schedule clear`. Because these commands run after a delay, commands ran using `/schedule` execute at the origin (`0.0 0.0 0.0`) as the Server; you can still use `/execute` to change execution context within the scheduled function. You also cannot schedule macro functions.
+
+These limitations are a tiny bit upsetting, but are nonetheless reasonable because the information isn't guarenteed to be accessible once the function runs. Because these timers aren't per-player, `/schedule` is better used for global events rather than per-player events.
+
+Overall, `/schedule` is quite useful still, since you can make functions run in irregular loops (i.e delayed by any amount of ticks, seconds, or days.) or in fixed amounts of time. The lack of execution context and macros is unfortunate, but justified. Overall, `/schedule` goes into **A-**.
+
+### 41. `/scoreboard`
+
+One of the greats, `/scoreboard` allows for the manipulation of scoreboards: A way to store numbers.
+
+But scoreboards are more than just 'storing numbers', as they can store *statistics* - all of them in fact, plus some extras like `deathCount` and `trigger`. Besides these special criteria, you can assign players, entitys and even *fake player names* values in a scoreboard. From there you can add or subtract direct values, and even do basic arithmetic from other score sources.
+
+Even with number providers being much more powerful mathematically speaking, `/scoreboard` allows you to store values **per-entity**, and is the primary purpose of the command. You are even able to make them look nice like in servers using `/scoreboard players display`. The `trigger` criteria is also a key component in the `/trigger` command.
+
+There is only a few things that I'd change:
+1. Potentially allow for long values instead of integers (allowing numbers ranging from $-2^{63} \rightarrow 2^{63}-1$), this is nitpicky though
+2. Nitpicky as well, maybe allowing for to change the background of the sidebar.
+3. Objectives that display on the sidebar should not be global, but per-player with a global option. You can use the display options for teams, but that only works for 16 players.
+
+Overall, `/scoreboard` did lose a bit of its legacy from number providers, but they still work good at
+- displaying integers,
+- storing these integers per-player,
+- allowing fake players, and
+- being much quicker than NBT operations.
+
+However, there is some limitations that make this command just a wee far off from essentially perfection. For these reasons, `/scoreboard` goes into the **S tier**, higher than `/item`, but lower than `/function`.
+
+### 42. `/seed`
+
+The simplest command is `/seed`, as it displays the world seed used for the world. This command is very close to useless, since
+- The seed is most likely a long value;
+- You have to get the seed via command block output;
+- Even if you get the seed, you can't perform arithmetic on it (since it's a long), so you have to transform it into their bits to even use it 2 billion times out 2 billion and one or whatever.
+
+I don't know why you'd use the world seed for a datapack, as recreating worldgen is utterly ridiculous, but not *impossible* or *useless*. At least it's usable without operator (unless you are on a server ;). ).
+
+For these reasons, `/seed` gets the second worst ranking here at **D-**. It's only not in F tier because it has a theoretical purpose.
