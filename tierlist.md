@@ -220,7 +220,7 @@ You are also able to remove effects using `/effect clear <targets> [<effect>]`. 
 
 This command doesn't have that much wrong - it's always nice to give players saturation, or night vision. They do reset on death, but it's super easy to just regive them. I do wish that time was in ticks instead of seconds.
 
-For these reasons, `/effect` goes into **A-**. There's most likely an effect that will be used, and being able to hide particles, and supply infinite time is very nice.
+For these reasons, `/effect` goes into **A**. There's most likely an effect that will be used, and being able to hide particles, and supply infinite time is very nice.
 
 ### 14. `/enchant`
 
@@ -296,3 +296,126 @@ While this command isn't used everywhere, keeping a loaded area is necessary for
 The `/function` command is simple: it runs a function or function tag, with optional macro values that can be passed in. Command functions are essentially the heart of datapacks, since they can run multiple commands instantly, and they remember **context** (what ran, and where it ran). On top of this, being able to supply macro values to pass in is likely the best thing Mojang has added since the `/execute` revamp.
 
 While yes, non datapackers basically have no use for this, it's so useful for datapacks that it earns the bronze medal for best command (only behind `/data` and `/execute`), and that's because datapacks *technically* aren't necessary to build most things that don't require macros. For these reasons, `/function` will be given an **S tier**.
+
+### 21. `/gamemode`
+
+Now for some simple commands, `/gamemode` allows you to change a player's gamemode through commands. With 1.16 adding the F3+F4 gamemode switcher, `/gamemode` for convenience sake is quite irrelevant now. Changing the player's gamemode - especially from and to spectator - is quite useful for certain minigames.
+
+I will put this command into **B-**, since it does it's job (unsuprisingly), but it doesn't have too many use cases.
+
+### 22. `/gamerule`
+
+The `/gamerule` command allows you to change game rules via commands. Since 26.1, it has become slightly less relevant for casual players, since the *World Options* menu was added, but is quite useful for datapack setup. For example, a datapack might need to set the `max_block_modifications` gamerule to a high number for dealing with large `/fill` or `/clone` regions, or set `keep_inventory` or `limited_crafting` to true. It's a form of setup, and that's still useful. 
+
+Another great example is enabling and disable PvP using the `pvp` gamerule, and enabling it after a set time.
+
+For these reasons, `/gamerule` will be put into **A-**.
+
+### 23. `/give`
+
+Another great command, `/give` allows you to give a player any item, while allowing you to set the item's components, and also in any amount, up to 100 stacks of that item.
+
+This command is very simple, and is very intuitive, you pick it up like how any normal item would; this is one advantage that `/give` has over its competitor `/item`.
+
+I really don't have much else to say, this command is just **great**, and anyone can use it. For these reasons, `/give` joins the the greats with an **S-**. It cannot be ranked higher because it's quite simplistic in nature, and there are more advanced ways of dealing with items.
+
+### 24. `/item`
+
+Speaking of items, next is the `/item` command. In 26.3, this command got a substantial revamp allowing for the modification of multiple slots (via `/item fill` and `/item override`, as well as the `/item [replace|modify]` changes), and allowing for the use of **slot sources**, which can select slots by their contents and other things.
+
+Additionally, you are able to apply item modifiers on these slots, being able to modify *any* component (except for some that are unusable like `creative_slot_lock`).
+
+With `/item`, you aren't limited to player's inventories either; you can modify any entity's inventory and any block entity with an inventory the same way.
+
+This command is so great because you have *full control* over inventories, especially after 26.3. For these reasons, `/item` goes in the **S tier**, but not stronger than `/function`, `/data` or `/execute`
+
+### 25. `/kill`
+
+This is one of the simplest commands so far, and it basically just kills entities. This is already *very* useful, since you get to remove any unwanted entities using a target selector (just want to be careful though).
+
+Due to it's simplistic nature, there isn't much to talk about. However, this doesn't change the rating: I will give it **A+**, very close to S-. It's a very good cleanup method for entities like markers, and is usable by anyone due to its simplicity.
+
+### 26. `/list`
+
+The `/list` command lists all players online in a server, with an extra option to list there UUIDs as well. I only put it here because:
+
+1. It's usable in singleplayer, and
+2. There are potential use cases for it
+
+For example, it is one way to get a player's name. It's also the only way of to directly get the player's UUID in hyphenated hexadecimal form, which can be used in commands (there are tools to turn UUID arrays into hexadecimal form, but it isn't direct). It's also a way of getting the amount of online players in a server, via `/execute store`.
+
+These use cases are, at best, very rare, except for getting online players. It's also a bit unintuitive, since you have a list of hexadecimal UUIDs, but you have to find a weird way to assign them.
+
+Overall, there is possible use cases, but they are small at best, and there are better ways. I'll give it a **C-**.
+
+### 27. `/locate`
+
+The `/locate` command allows the player to locate the nearest structure, biome or point of interest, and teleport to it. The command will fail if nothing is found within a around 12.8k blocks (256 for point of interests), and provide a clickable `/tp` command to the location.
+
+This command, to be honest, isn't useful for datapacks, but sure is very useful for custom structures, and finding structures in-game - especially with the speed improvement in 26.3.
+
+There is a potential usecase because the coordinates and `/tp` command are accessible via a command block's output, which could maybe be used in some datapack where you are to be teleported to the nearest structure. However, you aren't given the Y axis, and it sends you to the `0 0` chunk coordinate of the starting portion of a structure.
+
+Overall, there likely isn't a good purpose within command blocks, but for general use, it works well. I'll give it a **B-**, due to its potential (if configured properly).
+
+### 28. `/loot`
+
+Back to actually useful commands, `/loot` invokes a loot table, and can spawn the items in multiple ways, like:
+- giving them to a player;
+- inserting them into a block inventory (e.g. a chest);
+  - you can also choose to replace slots inside a container or entity; and
+- by spawning them in directly as item entities.
+
+From there you can choose to give the loot in multiple ways, where you can simulate fishing, killing a mob, or mining a specific block, or invoke a loot table directly; this loot table can be inline, allowing for the use of macros.
+
+When you want to give a player items based off of a loot table, this is the way to do it. The other options (except for fishing simulations) are useful in their own, niche way, as they supply basically all of the required loot context for each simulation.
+
+While not being as universal as `/give` or `/item`, being able to give out loot tables on demand is quite useful. For that reason, `/loot` will go inside of the **A tier**, close to an A+.
+
+### 29. `/particle`
+
+This is one of the most complex commands to place in the tierlist, despite it's simple purpose: create particles. These particles can have have configuration options with braces (e.g. `foo{config:<example>}`), and can be configured with amount, speed, a delta variable (these two are *weird* when creating more than one particle), whether it's forced (so people you have *Minimal* particles in their settings), and who can even see them to begin with.
+
+This command is hard to place, because it heavily depends on what you're working on. This command is *great* for creating subtle details inside of builds, and can be used to make interesting shapes or animations because of how particles work.
+
+The main problem with `/particle` however, is usability. To make one of these cool animations requires using hundreds of `/particle` commands; maybe not directly, but using the `/execute` command to change orientation or whatever to place more precisely. This makes building things with particle effects very unfun without tools (e.g. online generators).
+
+The `/particle` command has potential to place quite strongly, but it's
+1. Not useful for technical development, as particles are client sided and cannot be detected or anything like that; in other words, they're purely visual.
+2. Very hard to use for beginners, except for some particles (e.g. `explosion_emitter`).
+3. Very unintuitive if you want to make something beyond, say a splash. (very silly and overexaggerative example, but it suffices here)
+
+For these reasons, `/particle` gets put into **B+**, but can be placed anywhere from B to A, depending on who you ask. It's quite powerful, but implementation and usability doesn't cut it.
+
+### 30. `/place`
+
+This is an interesting command, since it allows you to *place* any structure, feature or template, as long as it meets certain requirements (these can be quite strict however, for example, end cities are hard to place). A good use case for this command, is to place really large structures using the `/place jigsaw` command. Jigsaw structures can be up to 257x257 blocks in each axis.
+
+Using `/place feature` could also be good for placing features like trees, amethyst geodes and monster rooms in precise locations. It is also quite good for testing custom structures, jigsaws, features without having to implement them into the world first.
+
+Overall, the main purpose is quite niche, but being able to place large structures is the best part. For these reasons, `/place` will be placed in **B tier**.
+
+### 31. `/playsound`
+
+This is a cool command, since it allows you to play a sound event at a specific place and for specfic players. You get a lot customization of the sound itself, like
+- the pitch of the sound (effectively within 0.5 and 2.0)
+- the volume (hearing radius once > 1)
+- the players who can hear it
+- the sound channel that it plays on (i.e what category of sound is it; e.g. sounds in the `master` channel are controlled by the master volume slider in the sound settings)
+- the minimum volume for players outside of the range set by `volume`
+
+This basically covers every possible configuration, minus the fact that sound *events* can cover a group of sounds (e.g. there's multiple zombie groaning sound effects, but under only one sound event) instead of a specific sound location.
+
+Overall, `/playsound` serves its purpose very well, and is very configurable, and I don't have anything against the command. Therefore, this command goes into **A-**. This command is actually quite well made, but it's more of an afterthought, like most commands based on atmosphere, like `/particle`.
+
+### 32. `/posteffect`
+
+This is the other command added in 26.3, and is also *very* powerful, but again, on the atmospheric (technically beyond that) side of things. The `/posteffect` command allows for the manipulation of post effects on a client; post effects are client-sided shaders that are visual only, and cannot by themselves do anything beyond apply an effect on screen.
+
+This command is undeniably the most powerful command concerning visual elements. However, it is (in my opinion) the *hardest* to use, especially if you want to make your own post effects.
+
+You see, custom post effects can basically allow you to put whatever you want on the screen; stacking post effects were even used to display data, such as in a minimap (the minimap obviously wasn't terrain accurate though). However, to most people, creating shaders are quite terrifying, and requires knowledge on how shaders actually work, and how to use OpenGL Shader Language. 
+
+Overall, this command is a double-eged sword, because it can lead to basically infinite possibilities (at least for the client's screen), but shaders are some of the hardest things to work with in vanilla Minecraft. For these reasons, `/posteffect` will be given into **B+ tier**, since it is the most powerful command concerning visual effects, but is likely the hardest to utilize; so much so, that you likely won't ever use it. 
+
+Please note that this is the most unsure placement on the entire list <!--This is unlikely to be, but possibly can be subject to change-->, since the balancing potenital and usability is especially hard here.
